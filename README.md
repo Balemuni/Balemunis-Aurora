@@ -26,10 +26,10 @@ This driver is built from the latest upstream Mesa `main` Git branch and incorpo
 
 ## Package Overview
 
-| Package File | Target Hardware | Recommended Emulators |
+| Package File | Target Hardware | Recommended Emulators | Downloads |
 |--------------|-----------------|------------------------|
-| Balemuni_Apex_Ultimate_Mesa26.3_SD8Gen2.zip | Snapdragon 8 Gen 2 (Adreno 740 / AYN Thor) | Eden, Citron, Yuzu, Cemu, Winlator, PPSSPP |
-| Balemuni_Apex_Universal_Mesa26.3_AllAdreno.zip | All Adreno Devices (Adreno 6xx, 7xx, 8xx) | All Vulkan Emulators & Android Games |
+| Balemuni_Apex_Ultimate_Mesa26.3_SD8Gen2.zip | Snapdragon 8 Gen 2 (Adreno 740 / AYN Thor) | Eden, Citron, Yuzu, Cemu, Winlator, PPSSPP | [Download](https://github.com/Balemuni/Balemunis-Aurora/releases/download/Balemuni/Balemuni_Apex_Ultimate_SD8Gen2.zip)
+| Balemuni_Apex_Universal_Mesa26.3_AllAdreno.zip | All Adreno Devices (Adreno 6xx, 7xx, 8xx) | All Vulkan Emulators & Android Games | [Download](https://github.com/Balemuni/Balemunis-Aurora/releases/download/Balemuni/Balemuni_Apex_Universal_AllAdreno.zip)
 
 ## Emulation & Gaming Compatibility
 
