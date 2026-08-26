@@ -1,58 +1,116 @@
-# Balemuni's Turnip — Mesa 26.3.0-devel (Apex Edition)
+# Balemuni’s Turnip — Mesa 26.3.0-devel  
+## Apex Universal V2 — Custom Vulkan Driver for Qualcomm Adreno GPUs
 
-Balemuni's Turnip (Apex Edition) is a bleeding-edge, highly tuned custom Mesa Turnip 26.3.0-devel Vulkan driver engineered specifically for Qualcomm Adreno GPUs, with dedicated tuning for the Qualcomm Snapdragon 8 Gen 2 (Adreno 740) on devices like the AYN Thor, Odin 2, and other Android handhelds and smartphones.
+Balemuni’s **Apex Universal V2** is a highly optimized custom build of **Mesa Turnip 26.3.0-devel**, designed to deliver maximum performance, stability and emulator compatibility across all Qualcomm Adreno GPUs.
 
-This driver is built from the latest upstream Mesa `main` Git branch and incorporates deep custom source-code optimizations, memory suballocator scaling, and tailored emulator compatibility patches to deliver unmatched stability, peak framerates, and flawless visual rendering.
+The project provides two editions:
 
-## Key Innovations & Custom Code Enhancements
+- **Apex v2 ULTIMATE (SD8 Gen 2)** — instruction‑level tuning for Cortex‑X3 prime cores  
+- **Apex Universal V2** — compatible with all Adreno 6xx / 7xx / 8xx devices, including upcoming Elite platforms
 
-- Global Code Motion (GCM) in IR3 Compiler (`gcm=1`)  
-  Automatically hoists loop-invariant instructions and common subexpressions out of shader hot paths. Reduces shader register pressure and improves framerate consistency.
+Both builds are compiled from the latest Mesa `main` branch and include extensive source‑level optimizations, expanded memory suballocator scaling and targeted fixes for emulator rendering issues.
 
-- 4 GB Default On-Disk Shader Cache  
-  The default Mesa shader cache limit has been increased from 1 GB to 4 GB (`4ULL * 1024 * 1024 * 1024`). Prevents premature deletion of pre-compiled shaders in large titles and eliminates shader compilation stutters.
+---
 
-- Scaled 512 KB High-VRAM Suballocator Pools  
-  `pipeline_suballoc` and `kgsl_profiling_suballoc` default block chunks have been scaled from 128 KB to 512 KB, reducing kernel memory fragmentation and CPU context-switching overhead.
+## Key Enhancements
 
-- Zelda: TOTK & BOTW Black Blocks / Artifacts Fix  
-  `tu_dont_care_as_load = true` and `tu_allow_oob_indirect_ubo_loads = true` prevent tile discarding on GMEM boundaries, fully resolving the black rectangular boxes and sky/terrain flickering in Tears of the Kingdom.
+### Global Code Motion (IR3 Compiler)
+Enables `gcm=1` to hoist loop‑invariant instructions and common subexpressions out of shader hot paths.  
+Reduces register pressure and improves framerate consistency.
 
-- Official Vulkan 1.4 Driver Identification  
-  Reports in Vulkan ICD and in-game HUDs as `Turnip (Balemuni Apex Edition)` with full Vulkan 1.4 feature support.
+### Expanded Shader Cache (4 GB)
+Increases Mesa’s default shader cache from 1 GB to 4 GB.  
+Prevents premature shader eviction and reduces compilation stutter in large titles.
 
-- Zero-Crash Multi-Cluster CPU Safety  
-  Optimized ARM64 instruction scheduling ensures crash-free operation across all asymmetric Big.LITTLE CPU clusters (Cortex-A510/A710/A715/X3) with zero SIGILL errors.
+### Scaled Suballocator Pools (512 KB)
+Increases `pipeline_suballoc` and `kgsl_profiling_suballoc` block sizes from 128 KB to 512 KB.  
+Reduces kernel memory fragmentation and CPU context‑switch overhead.
+
+### Zelda TOTK/BOTW Artifact Fixes
+Enables:
+- `tu_dont_care_as_load = true`  
+- `tu_allow_oob_indirect_ubo_loads = true`  
+
+Prevents GMEM tile discarding and resolves black blocks, sky flicker and terrain artifacts.
+
+### Extended Emulator Compatibility
+Includes native Driconf rules for:
+- border color handling  
+- OOB indirect UBO tolerance  
+- D3D‑compatible texture coordinate rounding  
+
+Improves stability across PC translation layers and major emulators.
+
+### Driver Identification
+Reports as:
+- **Turnip (Balemuni Apex Universal V2)**  
+- **Turnip (Balemuni Apex v2 Ultimate)**  
+
+---
+
+## Snapdragon Elite (Gen 3, Gen 4, Gen 5) Compatibility
+
+The Universal edition is designed to support **all modern Adreno architectures**, including:
+
+- **Snapdragon 8 Gen 3** — Adreno 750  
+- **Snapdragon 8 Elite Gen 4** — Adreno 830  
+- **Snapdragon 8 Elite Gen 5** — Adreno 840  
+
+Turnip already includes support for Adreno 750, 830 and 840 in upstream Mesa.  
+Therefore, Apex Universal V2 is **expected to run on Gen 3, Gen 4 and Gen 5 Elite chips**.
+
+**Important:**  
+We currently do **not** own any Snapdragon Gen 3 / Gen 4 / Gen 5 devices.  
+Compatibility is based on upstream Mesa support and should work, but **cannot yet be tested or guaranteed** until retail hardware is available.
+
+---
 
 ## Package Overview
 
-| Package File | Target Hardware | Recommended Emulators | Downloads |
-|---|---|---|---|
-| Balemuni_Apex_Ultimate_Mesa26.3_SD8Gen2.zip | Snapdragon 8 Gen 2 (Adreno 740 / AYN Thor) | Eden, Citron, Yuzu, Cemu, Winlator, PPSSPP | [Download](https://github.com/Balemuni/Balemunis-Aurora/releases/download/Balemuni/Balemuni_Apex_Ultimate_SD8Gen2.zip) |
-| Balemuni_Apex_Universal_Mesa26.3_AllAdreno.zip | All Adreno Devices (Adreno 6xx, 7xx, 8xx) | All Vulkan Emulators & Android Games | [Download](https://github.com/Balemuni/Balemunis-Aurora/releases/download/Balemuni/Balemuni_Apex_Universal_AllAdreno.zip) |
+| Package File | Target Hardware | Recommended Emulators |
+|--------------|-----------------|------------------------|
+| **Balemuni_Apex_v2_ULTIMATE_SD8Gen2.zip** | Snapdragon 8 Gen 2 (Adreno 740) — Cortex‑X3 tuned | Eden, Citron, Yuzu, Cemu, Winlator, PPSSPP |
+| **Balemuni_Apex_Universal_V2.zip** | All Adreno 6xx / 7xx / 8xx devices | All Vulkan emulators & Android games |
+
+### Recommended Edition
+
+| Device | Package |
+|--------|---------|
+| AYN Thor / Thor Pro / Thor Max, Odin 2/3, RedMagic 8/9, Galaxy S23/S24, ROG Phone | **ULTIMATE SD8Gen2** |
+| Any other Android 13+ device with Adreno GPU | **Universal V2** |
+
+> The ULTIMATE edition contains Cortex‑X3/ARMv8.5‑tuned code paths.  
+> Use the Universal edition on older or mid‑range chipsets.
+
+---
 
 ## Emulation & Gaming Compatibility
 
-Balemuni's Apex Edition is engineered and tested to provide top-tier performance in:
+Optimized and tested for:
 
-- Eden / Citron (Nintendo Switch Emulation)  
-- Cemu (Wii U Emulation)  
-- Azahar / NetherSX2 / AetherSX2 (PS2 Emulation)  
-- PPSSPP (PSP Emulation)  
-- Vita3K (PS Vita Emulation)  
-- Winlator / Mobox / Box64 (Windows PC Translation)  
-- Native Android Vulkan Titles
+- Eden / Citron (Nintendo Switch) — including TOTK & BOTW artifact fixes  
+- Cemu (Wii U)  
+- NetherSX2 / AetherSX2 (PS2)  
+- PPSSPP (PSP)  
+- Vita3K (PS Vita)  
+- Winlator / Mobox / Box64 (Windows translation)  
+- Native Android Vulkan titles
 
-## Target Devices
+---
+
+## Supported Devices
 
 - AYN Thor / Pro / Max (Snapdragon 8 Gen 2, Adreno 740)  
-- AYN Odin 2 / Retroid Pocket 5 / Mini / Steam Deck OLED (Android)  
-- Smartphones: RedMagic 8/9, ASUS ROG Phone, Samsung Galaxy S23/S24, Xiaomi 13/14, POCO F3/F4/F5  
-- Universal: Any Android 11+ device equipped with Qualcomm Adreno 6xx, 7xx, or 8xx GPUs
+- AYN Odin 2 / Retroid Pocket 5 / Mini  
+- RedMagic 8/9, ASUS ROG Phone, Samsung Galaxy S23/S24  
+- Xiaomi 13/14, POCO F3/F4/F5  
+- Any Android 13+ device with Adreno 6xx / 7xx / 8xx GPU  
+- Expected support: Snapdragon 8 Gen 3, Snapdragon 8 Elite Gen 4, Snapdragon 8 Elite Gen 5
 
-## Verified SHA256 Checksums
+---
 
+## SHA256 Checksums
 
 ```text
-dbd1971dd93eecc789ea20913fac68876f0f112c697bce6e6b16025c1d49cd8f  Balemuni_Apex_Ultimate_Mesa26.3_SD8Gen2.zip
-dbd1971dd93eecc789ea20913fac68876f0f112c697bce6e6b16025c1d49cd8f  Balemuni_Apex_Universal_Mesa26.3_AllAdreno.zip
+cd1b92d4b315b2157ce6b523b9b33a02167128873a01f1605dbaae0443533054  Balemuni_Apex_v2_ULTIMATE_SD8Gen2.zip
+38a3eb061016f3a17c412001e651105f99344a71a07b8e458a936b7e999cf2e3  Balemuni_Apex_Universal_V2.zip
